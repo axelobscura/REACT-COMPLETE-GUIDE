@@ -12,8 +12,6 @@ const Person = (props) => {
 
   const [otherState, setOtherState] = useState('Some other Value!!!!');
 
-  console.log(otherState, setOtherState);
-
   const cambiarNombreHandler = () => {
     setPersonasState({
       personas: [
