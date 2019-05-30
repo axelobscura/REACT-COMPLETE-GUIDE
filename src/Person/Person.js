@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './Person.css';
 
 const Person = (props) => {
 
@@ -23,7 +24,7 @@ const Person = (props) => {
   }
 
   return (
-    <div>
+    <div className="Person">
       <p>My name is {props.name} and my age is {props.age}</p>
       <p>{props.children}</p>
       <hr/>
