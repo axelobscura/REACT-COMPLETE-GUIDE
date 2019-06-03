@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 import Personas from './Personas/Personas';
+import Fruits from './Fruits/Fruits';
 
 class App extends Component {
   state = {
@@ -11,7 +12,12 @@ class App extends Component {
       { id: '3', name: 'Stephanie', age: 35}
     ],
     otherState: 'Some other value',
-    showPersons: false
+    showPersons: false,
+    frutas: [
+      { id: '1', nombre: 'Papaya' },
+      { id: '2', nombre: 'Melon' },
+      { id: '3', nombre: 'Sandia' }
+    ]
   }
 
   switchNameHandler = (newName)=>{
@@ -60,10 +66,15 @@ class App extends Component {
       showPersons: !doesShow
     })
   }
+
+  frutero = () => {
+    console.log('frutas');
+  }
   
   render() {
     const style = {
-      backgroundColor: '#fff',
+      backgroundColor: 'green',
+      color:'#fff',
       font: 'inherit',
       border: '1px solid blue',
       padding: '10px',
@@ -94,11 +105,27 @@ class App extends Component {
           <Personas nombre="Clodomiro" edad="90" click={this.switchNameHandler.bind(this, 'Zarapatreado')} changed={this.namedChangedHandler} />
         </div>
       )
+      style.backgroundColor = 'red';
+    }
+
+    const classes = [];
+    if(this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
     }
 
     return (
       <div className="App">
         <h1 style={style}>THE PERSONS APP</h1>
+        <p className={classes.join(' ')}>This is really working</p>
+        {this.state.frutas.map((fruta, index) => {
+          return(
+            <Fruits fruta={fruta.nombre} click={this.frutero} key={index} />
+          )
+        })}
+        
         <button onClick={this.togglePersonsHandler} style={{marginBottom: '30px'}}>Toggle Persons</button>
         {persons}
       </div>
