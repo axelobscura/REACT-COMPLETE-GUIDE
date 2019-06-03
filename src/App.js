@@ -3,6 +3,7 @@ import './App.css';
 import Person from './Person/Person';
 import Personas from './Personas/Personas';
 import Fruits from './Fruits/Fruits';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -80,7 +81,11 @@ class App extends Component {
       padding: '10px',
       borderRadius: '10px',
       cursor: 'pointer',
-      marginBottom: '20px'
+      marginBottom: '20px',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: '#000'
+      }
     };
 
     let persons = null;
@@ -90,14 +95,15 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <Person 
-                click={() => this.deletePersonHandler(index)} 
-                name={person.name} 
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.namedChangedHandler(event, person.id)}>
-                  {person.name}
-              </Person>
+              <ErrorBoundary key={person.id}>
+                <Person 
+                  click={() => this.deletePersonHandler(index)} 
+                  name={person.name} 
+                  age={person.age}
+                  changed={(event) => this.namedChangedHandler(event, person.id)}>
+                    {person.name}
+                </Person>
+              </ErrorBoundary>
             )
           })}
           
@@ -106,6 +112,10 @@ class App extends Component {
         </div>
       )
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      };
     }
 
     const classes = [];
@@ -117,18 +127,18 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <h1 style={style}>THE PERSONS APP</h1>
-        <p className={classes.join(' ')}>This is really working</p>
-        {this.state.frutas.map((fruta, index) => {
-          return(
-            <Fruits fruta={fruta.nombre} click={this.frutero} key={index} />
-          )
-        })}
-        
-        <button onClick={this.togglePersonsHandler} style={{marginBottom: '30px'}}>Toggle Persons</button>
-        {persons}
-      </div>
+        <div className="App">
+          <h1 style={style}>THE PERSONS APP</h1>
+          <p className={classes.join(' ')}>This is really working</p>
+          {this.state.frutas.map((fruta, index) => {
+            return(
+              <Fruits fruta={fruta.nombre} click={this.frutero} key={index} />
+            )
+          })}
+          
+          <button onClick={this.togglePersonsHandler} style={{marginBottom: '30px'}}>Toggle Persons</button>
+          {persons}
+        </div>
     );
   }
 }
