@@ -3,6 +3,8 @@ import './Person.css';
 
 const Person = (props) => {
 
+  console.log('[Person.js] rendering');
+
   const [ personsState, setPersonasState ] = useState({
     personas: [
       { name: 'Laurent', age: 35},

@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import Personas from '../components/Personas/Personas';
-import Fruits from '../components/Fruits/Fruits';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    console.log('[app.js] constructor');
+  }
+
   state = {
     persons: [
       { id: '1', name: 'Axel', age: 28},
@@ -18,6 +24,19 @@ class App extends Component {
       { id: '2', nombre: 'Melon' },
       { id: '3', nombre: 'Sandia' }
     ]
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentWillMount(){
+    console.log('[App.js] componentWillmount');
+  }
+
+  componentDidMount(){
+    console.log('[App.js] componentDidmount');
   }
 
   switchNameHandler = (newName)=>{
@@ -72,20 +91,8 @@ class App extends Component {
   }
   
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color:'#fff',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '10px',
-      borderRadius: '10px',
-      cursor: 'pointer',
-      marginBottom: '20px',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: '#000'
-      }
-    };
+
+    console.log('[App.js] render');
 
     let persons = null;
 
@@ -102,32 +109,18 @@ class App extends Component {
           <Personas nombre="Clodomiro" edad="90" click={this.switchNameHandler.bind(this, 'Zarapatreado')} changed={this.namedChangedHandler} />
         </div>
       )
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      };
-    }
-
-    const classes = [];
-    if(this.state.persons.length <= 2){
-      classes.push('red');
-    }
-    if(this.state.persons.length <= 1){
-      classes.push('bold');
+      
     }
 
     return (
         <div className="App">
-          <h1 style={style}>THE PERSONS APP</h1>
-          <p className={classes.join(' ')}>This is really working</p>
-          {this.state.frutas.map((fruta, index) => {
-            return(
-              <Fruits fruta={fruta.nombre} click={this.frutero} key={index} />
-            )
-          })}
-          
-          <button onClick={this.togglePersonsHandler} style={{marginBottom: '30px'}}>Toggle Persons</button>
+          <Cockpit 
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            frutas={this.state.frutas}
+            clicked={this.togglePersonsHandler}
+          />
           {persons}
         </div>
     );
