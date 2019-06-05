@@ -38,7 +38,11 @@ class App extends Component {
 
   shouldComponentUpdate(nextProps, nextState){
     console.log('[App.js] shouldComponentUpdate');
-    return true;
+    if(nextProps.persons !== this.props.persons || nextProps.changed !== this.props.changed || nextProps.clicked){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   componentDidUpdate(){
