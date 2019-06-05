@@ -9,7 +9,17 @@ const cockpit = (props) => {
     setTimeout(()=>{
       alert('Saved data to cloud!!!');
     }, 1000);
+    return()=>{
+      console.log('[Cockpit.js] Clean up effect')
+    };
   }, []);
+
+  useEffect(()=>{
+    console.log('[Cockpit.js] Use 2nd effect');
+    return()=>{
+      console.log('[Cockpit.js] Clean up 2nd effect')
+    };
+  });
 
   const style = {
     backgroundColor: 'green',
