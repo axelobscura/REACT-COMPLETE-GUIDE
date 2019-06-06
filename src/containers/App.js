@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classesApp from './App.css';
+import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Personas from '../components/Personas/Personas';
@@ -26,7 +26,8 @@ class App extends Component {
       { id: '1', nombre: 'Papaya' },
       { id: '2', nombre: 'Melon' },
       { id: '3', nombre: 'Sandia' }
-    ]
+    ],
+    changeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state){
@@ -37,7 +38,7 @@ class App extends Component {
   componentDidMount(){
     console.log('[App.js] componentDidmount');
   }
-
+  /*
   shouldComponentUpdate(nextProps, nextState){
     console.log('[App.js] shouldComponentUpdate');
     if(nextProps.persons !== this.props.persons || nextProps.changed !== this.props.changed || nextProps.clicked){
@@ -46,7 +47,7 @@ class App extends Component {
       return false;
     }
   }
-
+*/
   componentDidUpdate(){
     console.log('[App.js] componentDidUpdate');
   }
@@ -85,7 +86,12 @@ class App extends Component {
 
     persons[personIndex] = person;
 
-    this.setState({persons: persons})
+    this.setState((prevState, props) => {
+      return {
+        persons: persons, 
+        changeCounter: prevState.changeCounter + 1
+      }
+    });
   }
 
   deletePersonHandler = (personIndex) => {
@@ -129,7 +135,7 @@ class App extends Component {
     }
 
     return (
-        <Aux>
+        <div className="App">
           <button onClick={()=>{this.setState({showCockpit: false})}}>Remove Cockpit</button>
           {this.state.showCockpit ?
           <Cockpit 
@@ -140,9 +146,9 @@ class App extends Component {
             clicked={this.togglePersonsHandler}
           /> : null }
           {persons}
-        </Aux>
+        </div>
     );
   }
 }
 
-export default withClass(App, classesApp.App);
+export default App;
