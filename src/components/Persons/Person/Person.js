@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Person.css';
+import AuthContext from '../../../context/auth-context';
 
 const Person = (props) => {
 
@@ -28,7 +29,9 @@ const Person = (props) => {
 
   return (
     <div className="Person">
-      {props.isAuth ? <p>Authenticated</p> : <p>Please Log in</p>}
+      <AuthContext.Consumer>
+        {(context) => context.authenticated ? <p>Authenticated</p> : <p>Please Log in</p>}
+      </AuthContext.Consumer>
       <p onClick={props.click}>My name is {props.name} and my age is {props.age}</p>
       <p>{props.children}</p>
       <hr/>

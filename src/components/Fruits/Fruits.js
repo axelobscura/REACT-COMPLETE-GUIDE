@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
+import authContext from '../../context/auth-context';
 
 class Fruits extends Component {
 
@@ -7,6 +8,8 @@ class Fruits extends Component {
     super(props);
     this.inputElementRef = React.createRef();
   }
+
+  static contextType = authContext;
 
   componentDidMount(){
     this.inputElementRef.current.focus();
