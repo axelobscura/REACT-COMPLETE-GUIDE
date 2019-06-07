@@ -27,7 +27,8 @@ class App extends Component {
       { id: '2', nombre: 'Melon' },
       { id: '3', nombre: 'Sandia' }
     ],
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state){
@@ -111,6 +112,10 @@ class App extends Component {
   frutero = () => {
     console.log('frutas');
   }
+
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
   
   render() {
 
@@ -124,7 +129,8 @@ class App extends Component {
           <Persons 
             persons={this.state.persons} 
             clicked={this.deletePersonHandler} 
-            changed={this.namedChangedHandler} 
+            changed={this.namedChangedHandler}
+            isAuthenticated={this.state.authenticated}
           />
           
           <hr/>
@@ -144,6 +150,7 @@ class App extends Component {
             persons={this.state.persons}
             frutas={this.state.frutas}
             clicked={this.togglePersonsHandler}
+            login={this.loginHandler}
           /> : null }
           {persons}
         </div>

@@ -28,6 +28,7 @@ const Person = (props) => {
 
   return (
     <div className="Person">
+      {props.isAuth ? <p>Authenticated</p> : <p>Please Log in</p>}
       <p onClick={props.click}>My name is {props.name} and my age is {props.age}</p>
       <p>{props.children}</p>
       <hr/>

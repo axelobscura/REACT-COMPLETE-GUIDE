@@ -1,14 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from './Cockpit.css';
 import Fruits from '../Fruits/Fruits';
 
 const cockpit = (props) => {
 
+  const toggleBtnRef = useRef(null);
+  
+
   useEffect(() => {
     console.log('[Cockpit.js] Use effect like this');
-    setTimeout(()=>{
-      alert('Saved data to cloud!!!');
-    }, 1000);
+    //setTimeout(()=>{
+    //  alert('Saved data to cloud!!!');
+    //}, 1000);
+    toggleBtnRef.current.click();
     return()=>{
       console.log('[Cockpit.js] Clean up effect')
     };
@@ -63,7 +67,8 @@ const cockpit = (props) => {
         )
       })}
 
-      <button onClick={props.clicked} style={{ marginBottom: '30px' }}>Toggle Persons</button>
+      <button ref={toggleBtnRef} onClick={props.clicked} style={{ marginBottom: '30px' }}>Toggle Persons</button>
+      <button onClick={props.login}>Log In</button>
     </div>    
   );
 }

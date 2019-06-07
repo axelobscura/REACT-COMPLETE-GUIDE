@@ -12,6 +12,7 @@ const persons = (props) => {
         key={person.id}
         changed={(event) => props.changed(event, person.id)}>
         {person.name}
+        isAuth={props.isAuthenticated}
       </Person>
     )
   });
